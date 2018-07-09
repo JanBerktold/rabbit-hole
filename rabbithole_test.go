@@ -1416,4 +1416,16 @@ var _ = Describe("Rabbithole", func() {
 			Ω(err).Should(BeNil())
 		})
 	})
+
+	Context("PUT /federation-upstream/", func() {
+		It("Creates the upstream", func() {
+			rmqc.PutFederationUpstream("/", "upstream", &FederationDefinition{
+			})
+
+			upstream, err := rmqc.GetFederationUpstream("/", "upstream")
+			Ω(err).Should(BeNil())
+			Ω(upstream.Name).Should(Equal("upstream"))
+		})
+		It("Updates the upstream", func() {})
+	})
 })

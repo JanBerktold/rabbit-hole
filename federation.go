@@ -23,7 +23,51 @@ type FederationDefinition struct {
 
 // Represents a configured Federation upstream.
 type FederationUpstream struct {
+	Name string `json:"name,omitempty"`
+	VHost string `json:"vhost,omitempty"`
 	Definition FederationDefinition `json:"value"`
+}
+
+//
+// GET /api/parameters/federation-upstream/{vhost}/{name}
+//
+
+// Gets a federation upstream.
+func (c * Client) GetFederationUpstreams(string vhost, string name) (FederationUpstream, error) {
+	req, err := newRequestWithBody(c, "GET", fmt.Sprintf("parameters/federation-upstream/%s/%s", vhost, name) , nil)
+	if err != nil {
+		return nil, err
+	}
+
+	result := FederationUpstream{}
+
+	err = executeAndParseRequest(c, req, &result)
+	if err != nil {
+		return nil, err
+	}
+
+	return result, err
+}
+
+//
+// GET /api/parameters/federation-upstream
+//
+
+// Lists all configured federation upstreams.
+func (c * Client) ListFederationUpstreams() ([]FederationUpstream, error) {
+	req, err := newRequestWithBody(c, "GET", "parameters/federation-upstream", nil)
+	if err != nil {
+		return nil, err
+	}
+
+	result := make([]FederationUpstream, 0)
+
+	err = executeAndParseRequest(c, req, &result)
+	if err != nil {
+		return nil, err
+	}
+
+	return result, err
 }
 
 //
