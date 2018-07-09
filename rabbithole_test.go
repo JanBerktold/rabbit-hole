@@ -1419,7 +1419,7 @@ var _ = Describe("Rabbithole", func() {
 
 	Context("PUT /federation-upstream/", func() {
 		It("Creates the upstream", func() {
-			rmqc.PutFederationUpstream("/", "upstream", &FederationDefinition{
+			rmqc.PutFederationUpstream("/", "upstream", FederationDefinition{
 			})
 
 			upstream, err := rmqc.GetFederationUpstream("/", "upstream")

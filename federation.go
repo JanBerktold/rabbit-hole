@@ -34,7 +34,7 @@ type FederationUpstream struct {
 //
 
 // Gets a federation upstream.
-func (c * Client) GetFederationUpstreams(vhost string, name string) (*FederationUpstream, error) {
+func (c * Client) GetFederationUpstream(vhost string, name string) (*FederationUpstream, error) {
 	req, err := newRequestWithBody(c, "GET", fmt.Sprintf("parameters/federation-upstream/%s/%s", vhost, name) , nil)
 	if err != nil {
 		return nil, err
