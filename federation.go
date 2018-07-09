@@ -3,6 +3,7 @@ package rabbithole
 import (
 	"encoding/json"
 	"net/http"
+	"fmt"
 )
 
 // Federation definition: additional arguments
@@ -33,7 +34,7 @@ type FederationUpstream struct {
 //
 
 // Gets a federation upstream.
-func (c * Client) GetFederationUpstreams(string vhost, string name) (FederationUpstream, error) {
+func (c * Client) GetFederationUpstreams(vhost string, name string) (*FederationUpstream, error) {
 	req, err := newRequestWithBody(c, "GET", fmt.Sprintf("parameters/federation-upstream/%s/%s", vhost, name) , nil)
 	if err != nil {
 		return nil, err
@@ -46,7 +47,7 @@ func (c * Client) GetFederationUpstreams(string vhost, string name) (FederationU
 		return nil, err
 	}
 
-	return result, err
+	return &result, err
 }
 
 //
